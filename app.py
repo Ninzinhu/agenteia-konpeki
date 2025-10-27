@@ -1,7 +1,7 @@
 
 import streamlit as st
 from langchain_community.chat_models import ChatOllama
-from langchain.schema import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage, AIMessage
 
 # Configura o título da página e o modelo a ser usado
 st.set_page_config(page_title="Chat com Llama 3", page_icon="🤖")
@@ -31,7 +31,7 @@ if prompt := st.chat_input("Qual a sua pergunta?"):
     with st.chat_message("ai"):
         with st.spinner("Pensando..."):
             # Envia todo o histórico para o modelo
-            response = llm(st.session_state.messages)
+            response = llm.invoke(st.session_state.messages)
             st.markdown(response.content)
     
     # Adiciona a resposta do modelo ao histórico
